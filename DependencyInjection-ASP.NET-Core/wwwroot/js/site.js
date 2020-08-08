@@ -1,16 +1,12 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-
+﻿
 $(document).ready(function () {
 
-    $("#Calcular").on('click', CalcularResultado)
-    $("#Ejemplo").on('click', GenerarEjemploSuma)
+    $("#Calcular").on('click', CalcularResultado);
+    $("#Ejemplo").on('click', GenerarEjemploSuma);
+    $("#CalcularEdad").on('click', CalcularEdad);
+    $("#EjemploEdad").on('click', GenerarEjemploEdad);
+    $("#FechaNacimiento").mask('99/99/9999');
 });
-
-
 function CalcularResultado()
 {
 
@@ -18,7 +14,7 @@ function CalcularResultado()
     var SegundoNumero = $("#SegundoNumero").val();
     var TipoOperacion = $("#TipoOperacion").val();
     $.ajax({
-        url: '/home/calcular',
+        url: '/calcular/calcularOperacion',
         type: 'POST',
         success: function (e) {
             $("#Resultado").val(e.result);
@@ -28,8 +24,27 @@ function CalcularResultado()
   
 }
 
+function CalcularEdad() {
+
+    var FechaNacimiento = $("#FechaNacimiento").val();
+    $.ajax({
+        url: '/calcular/calcularEdad',
+        type: 'POST',
+        success: function (e) {
+            $("#Edad").val(e.result);
+        },
+        data: { FechaNacimiento}
+    });
+
+}
+
 function GenerarEjemploSuma()
 {
     $("#PrimerNumero").val(34);
     $("#SegundoNumero").val(85);
+}
+
+function GenerarEjemploEdad()
+{
+    $("#FechaNacimiento").val("18/09/1992");
 }

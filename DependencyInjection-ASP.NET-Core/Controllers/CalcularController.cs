@@ -12,13 +12,15 @@ using DependencyInjection_ASP.NET_Core.Abstracciones;
 
 namespace DependencyInjection_ASP.NET_Core.Controllers
 {
-    public class HomeController : Controller
+    public class CalcularController : Controller
     {
         private readonly ICalcularModel _calcularModel;
+        private readonly IEdadModel _edadModel;
 
-        public HomeController(ICalcularModel calcularModel)
+        public CalcularController(ICalcularModel calcularModel,IEdadModel edadModel)
         {
             _calcularModel = calcularModel;
+            _edadModel = edadModel;
         }
 
         public IActionResult Index()
@@ -26,10 +28,21 @@ namespace DependencyInjection_ASP.NET_Core.Controllers
             return View(new CalculoViewModel());
         }
 
+        public IActionResult IndexEdad()
+        {
+            return View(new EdadViewModel());
+        }
+
         [HttpPost]
-        public JsonResult Calcular (decimal primerNumero, decimal segundoNumero, Operacion tipoOperacion)
+        public JsonResult CalcularOperacion (decimal primerNumero, decimal segundoNumero, Operacion tipoOperacion)
         {
             return Json(new { result = _calcularModel.Calcular(new CalculoViewModel() { PrimerNumero =primerNumero ,SegundoNumero=segundoNumero,TipoOperacion=tipoOperacion}) });
+        }
+
+        [HttpPost]
+        public JsonResult CalcularEdad(DateTime fechanacimiento)
+        {
+            return Json(new { result = _edadModel.CalcularEdad(new EdadViewModel() { FechaNacimiento = fechanacimiento}) });
         }
     }
 }

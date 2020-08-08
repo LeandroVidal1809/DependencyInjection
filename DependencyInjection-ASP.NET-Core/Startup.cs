@@ -29,7 +29,8 @@ namespace DependencyInjection_ASP.NET_Core
             
             //Usandro Scoped crea una instancia por cada request
             services.AddScoped<ICalcularModel, CalcularModel>();
-            
+            services.AddScoped<IEdadModel, EdadModel>();
+
             //Si usara singleton seria una instancia unica para todos los controller y request que la consuman
             //services.AddSingleton<ICalcularModel, CalcularModel>();
 
@@ -47,7 +48,7 @@ namespace DependencyInjection_ASP.NET_Core
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Calcular/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -62,7 +63,7 @@ namespace DependencyInjection_ASP.NET_Core
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Calcular}/{action=Index}/{id?}");
             });
         }
     }
