@@ -8,16 +8,17 @@ using Microsoft.Extensions.Logging;
 using DependencyInjection_ASP.NET_Core.Models;
 using DependencyInjection_ASP.NET_Core.ViewModel;
 using System.Net;
+using DependencyInjection_ASP.NET_Core.Abstracciones;
 
 namespace DependencyInjection_ASP.NET_Core.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ICalcularModel _calcularModel;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ICalcularModel calcularModel)
         {
-            _logger = logger;
+            _calcularModel = calcularModel;
         }
 
         public IActionResult Index()
@@ -25,23 +26,10 @@ namespace DependencyInjection_ASP.NET_Core.Controllers
             return View(new CalculoViewModel());
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [HttpPost]
         public JsonResult Calcular (decimal primerNumero, decimal segundoNumero, Operacion tipoOperacion)
         {
-
-            CalcularModel model = new CalcularModel();
-            return Json(new { result = model.Calcular(new CalculoViewModel() { PrimerNumero =primerNumero ,SegundoNumero=segundoNumero,TipoOperacion=tipoOperacion}) });
+            return Json(new { result = _calcularModel.Calcular(new CalculoViewModel() { PrimerNumero =primerNumero ,SegundoNumero=segundoNumero,TipoOperacion=tipoOperacion}) });
         }
     }
 }

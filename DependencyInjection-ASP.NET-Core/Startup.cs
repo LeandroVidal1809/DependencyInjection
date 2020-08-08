@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DependencyInjection_ASP.NET_Core.Abstracciones;
+using DependencyInjection_ASP.NET_Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,7 +26,16 @@ namespace DependencyInjection_ASP.NET_Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddControllersWithViews();
+            
+            //Usandro Scoped crea una instancia por cada request
+            services.AddScoped<ICalcularModel, CalcularModel>();
+            
+            //Si usara singleton seria una instancia unica para todos los controller y request que la consuman
+            //services.AddSingleton<ICalcularModel, CalcularModel>();
+
+            //si usara transient seria una instacia por CADA controller y Request realizado
+            //services.AddTransient<ICalcularModel, CalcularModel>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

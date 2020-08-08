@@ -1,4 +1,6 @@
-﻿using DependencyInjection_ASP.NET_Core.ViewModel;
+﻿using DependencyInjection_ASP.NET_Core.Abstracciones;
+using DependencyInjection_ASP.NET_Core.ViewModel;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +9,13 @@ using System.Threading.Tasks;
 
 namespace DependencyInjection_ASP.NET_Core.Models
 {
-    public class CalcularModel
+    public class CalcularModel :ICalcularModel
     {
+        private readonly ILogger<CalcularModel> _logger;
+        public CalcularModel(ILogger<CalcularModel> logger)
+        {
+            _logger = logger;
+        }
         public string Calcular(CalculoViewModel viewmodel)
         {
             switch (viewmodel.TipoOperacion)
