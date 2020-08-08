@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DependencyInjection_ASP.NET_Core.Models;
+using DependencyInjection_ASP.NET_Core.ViewModel;
+using System.Net;
 
 namespace DependencyInjection_ASP.NET_Core.Controllers
 {
@@ -20,7 +22,7 @@ namespace DependencyInjection_ASP.NET_Core.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new CalculoViewModel());
         }
 
         public IActionResult Privacy()
@@ -32,6 +34,14 @@ namespace DependencyInjection_ASP.NET_Core.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public JsonResult Calcular (decimal primerNumero, decimal segundoNumero, Operacion tipoOperacion)
+        {
+
+            CalcularModel model = new CalcularModel();
+            return Json(new { result = model.Calcular(new CalculoViewModel() { PrimerNumero =primerNumero ,SegundoNumero=segundoNumero,TipoOperacion=tipoOperacion}) });
         }
     }
 }

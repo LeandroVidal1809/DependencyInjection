@@ -1,8 +1,31 @@
-﻿@{
+﻿@using DependencyInjection_ASP.NET_Core.ViewModel
+@model CalculoViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="text-center col-12">
+        <h1 class="display-4">Calcular</h1>
+        <div class="col-12 text-left">
+            <div class="form-group">
+                @Html.LabelFor(x => x.PrimerNumero, " Primer número:")
+                @Html.TextBoxFor(x => x.PrimerNumero, new { @class = "form-control col-lg-4" })
+            </div>
+            <div class="form-group ">
+                @Html.LabelFor(x => x.PrimerNumero, " Operación:")
+                @Html.DropDownList("TipoOperacion",
+                Html.GetEnumSelectList<Operacion>(), new { @class = "form-control col-lg-4" })
+            </div>
+            <div class=" form-group">
+                @Html.LabelFor(x => x.SegundoNumero, "Segundo número:")
+                @Html.TextBoxFor(x => x.SegundoNumero, new { @class = "form-control col-lg-4" })
+            </div>
+            <div class="form-group d-inline-flex">
+                <button type="button" id="Calcular" style="margin-right:5%" class="btn btn-primary">Calcular</button>
+                <button type="button" id="Ejemplo" style="margin-right:12%" class="btn btn-secondary">Ejemplo</button>
+                @Html.TextBoxFor(x => x.Resultado, new { @class = "form-control col-lg-4" })
+            </div>
+            </div>
+
+        </div>
+    </div>
