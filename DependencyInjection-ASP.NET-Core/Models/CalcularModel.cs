@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace DependencyInjection_ASP.NET_Core.Models
 {
@@ -18,6 +19,7 @@ namespace DependencyInjection_ASP.NET_Core.Models
         }
         public string Calcular(CalculoViewModel viewmodel)
         {
+            _logger.LogInformation("Comienza a {Operacion} entre {PrimerNumero} y {SegundoNumero}",viewmodel.TipoOperacion.ToString(), viewmodel.PrimerNumero, viewmodel.SegundoNumero);
             switch (viewmodel.TipoOperacion)
             {
                 case Operacion.sumar:
