@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatosPersonas.Abstracciones;
+using DatosPersonas.Contextos;
 using DependencyInjection_ASP.NET_Core.Abstracciones;
 using DependencyInjection_ASP.NET_Core.Models;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +32,8 @@ namespace DependencyInjection_ASP.NET_Core
             //Usandro Scoped crea una instancia por cada request
             services.AddScoped<ICalcularModel, CalcularModel>();
             services.AddScoped<IEdadModel, EdadModel>();
+            services.AddScoped<IPersonasModel, PersonasModel>();
+            services.AddScoped<IContextoDatosPersona,ContextoDatosPersonas>();
 
             //Si usara singleton seria una instancia unica para todos los controller y request que la consuman
             //services.AddSingleton<ICalcularModel, CalcularModel>();

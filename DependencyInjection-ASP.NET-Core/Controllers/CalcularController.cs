@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using DependencyInjection_ASP.NET_Core.Models;
 using DependencyInjection_ASP.NET_Core.ViewModel;
-using System.Net;
 using DependencyInjection_ASP.NET_Core.Abstracciones;
 
 namespace DependencyInjection_ASP.NET_Core.Controllers
@@ -16,7 +9,11 @@ namespace DependencyInjection_ASP.NET_Core.Controllers
     {
         private readonly ICalcularModel _calcularModel;
         private readonly IEdadModel _edadModel;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="calcularModel">Dependencia Inyectada</param>
+        /// <param name="edadModel">Dependencia Inyectada</param>
         public CalcularController(ICalcularModel calcularModel,IEdadModel edadModel)
         {
             _calcularModel = calcularModel;
